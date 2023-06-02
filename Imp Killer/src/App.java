@@ -13,6 +13,7 @@ public class App extends Script{
     private String task;
     private NPC imp;
     private int IMP_ID = 5007;
+    private int imps;
     private Area FALADOR_BANK = new Area(3010, 3356, 3014, 3355);
     private Area IMP_AREA = new Area(
         new int[][]{
@@ -27,6 +28,7 @@ public class App extends Script{
     public void onStart()
     {
         task = "starting";
+        imps = 0;
         log("Starting");
         startTime = System.currentTimeMillis();
         overlay = new OverlayGraphics();
@@ -38,7 +40,7 @@ public class App extends Script{
             gearUp();
         else if (getInventory().isFull())
             goBank(true);
-        else if (!IMP_AREA.contains(myPosition()))
+        else if (!IMP_AREA.contains(myPosition()) && !myPlayer().isAnimating())
             getWalking().webWalk(IMP_AREA);
         else if (((imp = getNpcs().closest(IMP_ID)) != null) && !imp.isUnderAttack())
             imp.interact("Attack");
@@ -49,7 +51,7 @@ public class App extends Script{
 
     public void onPaint(Graphics2D graphics)
     {
-        overlay.update(System.currentTimeMillis() - startTime, task);
+        overlay.update(System.currentTimeMillis() - startTime, task, imps);
         if (overlay!=null)
             overlay.onPaint(graphics);
     }
