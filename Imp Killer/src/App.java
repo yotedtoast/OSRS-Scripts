@@ -37,15 +37,30 @@ public class App extends Script{
     public int onLoop()
     {
         if (!getInventory().getEquipment().contains(1277))
+        {
+            task = "Gearing Up";
             gearUp();
+        }
         else if (getInventory().isFull())
+        {
+            task = "Banking";
             goBank(true);
-        else if (!IMP_AREA.contains(myPosition()) && !myPlayer().isAnimating())
+        }
+        else if (!IMP_AREA.contains(myPosition()) && !myPlayer().isUnderAttack() && !myPlayer().isMoving())
+        {
+            task = "Walking to Imp Area";
             getWalking().webWalk(IMP_AREA);
-        else if (((imp = getNpcs().closest(IMP_ID)) != null) && !imp.isUnderAttack())
+        }
+        else if (((imp = getNpcs().closest(IMP_ID)) != null) && !imp.isUnderAttack() && !myPlayer().isMoving())
+        {
+            task = "Attacking Imp";
             imp.interact("Attack");
-        else
+        }
+        else if(getNpcs().closest(IMP_ID) == null)
+        {
+            task = "Hopping worlds";
             hopWorld();
+        }
         return 600;
     }
 
@@ -107,4 +122,6 @@ public class App extends Script{
     {
 
     }
+
+    
 }
