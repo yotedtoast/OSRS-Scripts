@@ -11,6 +11,8 @@ public class App extends Script{
     private OverlayGraphics overlay;
     private long startTime;
     private String task;
+    private NPC imp;
+    private int IMP_ID = 5007;
     private Area FALADOR_BANK = new Area(3010, 3356, 3014, 3355);
     private Area IMP_AREA = new Area(
         new int[][]{
@@ -20,9 +22,7 @@ public class App extends Script{
             { 3021, 3321 }
         }
     );
-    private NPC imp;
-    private int IMP_ID = 5007;
-
+    
     //SWORD = 1277, SHIELD = 1171
     public void onStart()
     {
