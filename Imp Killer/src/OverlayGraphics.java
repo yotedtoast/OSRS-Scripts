@@ -5,6 +5,7 @@ import org.osbot.rs07.canvas.paint.Painter;
 
 public class OverlayGraphics implements Painter {
     private long runTime;
+    private String task;
 
     @Override
     public void onPaint(Graphics2D graphics) {
@@ -12,10 +13,12 @@ public class OverlayGraphics implements Painter {
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
         graphics.drawString("Runtime: " + runTime, 100, 100);
+        graphics.drawString("Current Task: " + task, 100, 120);
     }
 
-    public void update(long runTime)
+    public void update(long runTime, String task)
     {
         this.runTime = runTime;
+        this.task = task;
     }
 }
